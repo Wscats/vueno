@@ -2,6 +2,12 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 const { exec } = require('child_process');
+const {
+	compileInlineStyle,
+	createVue,
+	readFile,
+	fileType,
+} = require('./libs');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -25,34 +31,49 @@ function activate(context) {
 		vscode.window.showInformationMessage('Hello World!!!!!!!');
 	});
 
-	exec(`npm install typescript -g`, (err, stdout, stderr) => {
-		if (err) {
-			console.error(err);
-			return;
-		}
-		console.log(stdout);
-	});
+	// exec(`npm install typescript -g`, (err, stdout, stderr) => {
+	// 	if (err) {
+	// 		console.error(err);
+	// 		return;
+	// 	}
+	// 	console.log(stdout);
+	// });
 
 	context.subscriptions.push(disposable);
 
-	vscode.workspace.onDidSaveTextDocument((document) => {
+	vscode.workspace.onDidSaveTextDocument(async (document) => {
 		const {
-				fileName
+			fileName
 		} = document
-		console.log(fileName, context);
-		exec(`tsc ${fileName}`, (err, stdout, stderr) => {
-			if (err) {
-			  console.error(err);
-			  return;
-			}
-			console.log(stdout);
-		});
-  });
+		console.log(fileType(fileName));
+		const type = fileType(fileName);
+		switch (type) {
+			case '.html':
+				const fileConfig = await readFile(fileName);
+				const styleConfig = await compileInlineStyle({
+					...fileConfig,
+					path: fileName
+				});
+				createVue(styleConfig)
+				console.log(fileConfig, styleConfig);
+				break;
+			case '.ts':
+				exec(`tsc ${fileName}`, (err, stdout, stderr) => {
+					if (err) {
+						console.error(err);
+						return;
+					}
+					console.log(stdout);
+				});
+				break;
+
+		}
+	});
 }
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
 	activate,
