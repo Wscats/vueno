@@ -4,6 +4,7 @@ const vscode = require('vscode');
 const { exec } = require('child_process');
 const {
 	compileInlineStyle,
+	createHtml,
 	createVue,
 	readFile,
 	fileType,
@@ -54,6 +55,7 @@ function activate(context) {
 					...fileConfig,
 					path: fileName
 				});
+				createHtml(styleConfig)
 				createVue(styleConfig)
 				console.log(fileConfig, styleConfig);
 				break;
@@ -70,6 +72,7 @@ function activate(context) {
 		}
 	});
 }
+
 exports.activate = activate;
 
 // this method is called when your extension is deactivated

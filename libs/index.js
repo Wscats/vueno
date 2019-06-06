@@ -62,6 +62,32 @@ const createVue = (config) => {
         path
     } = config;
     console.log(config);
+    fs.writeFile(`${path}.vue`, `
+        <template>
+            <div>
+                ${template}
+            </div>
+        </template>
+        <script>
+        export default {
+            
+        }
+        </script>
+        <style scoped>
+            ${style}
+        </style>
+    `, () => {
+        console.log('write success');
+    })
+}
+
+const createHtml = (config) => {
+    const {
+        style,
+        template,
+        path
+    } = config;
+    console.log(config);
     fs.writeFile(`${path}.html`, `
         <!DOCTYPE html>
         <html lang="en">
@@ -74,13 +100,11 @@ const createVue = (config) => {
         </head>
         <body>
             <div id="demo"></div>
-            <script src="../../js/vue.js"></script>
+            <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
             <script>
                 new Vue({
                     el:"#demo",
-                    template:${'`'}
-                        ${template}
-                    ${'`'}
+                    template:${'`'}${template}${'`'}
                 })
             </script>
         </body>
@@ -101,6 +125,7 @@ const fileType = (filename) => {
 
 module.exports = {
     compileInlineStyle,
+    createHtml,
     createVue,
     readFile,
     fileType,
