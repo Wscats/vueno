@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 const jQuery = require("jquery")
+const prettier = require('prettier');
 // 读取源代码html文件
 const readFile = (url) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +36,8 @@ const compileInlineStyle = (config) => {
         $('style').each((index, item) => {
             style += $(item).html();
             console.log($(item).html());
-        })
+        });
+        style = prettier.format(style, { parser: "css" });
         $('style').remove();
         $('script').remove();
         // console.log($('body').html());
@@ -47,7 +49,7 @@ const compileInlineStyle = (config) => {
                 resolve({
                     ...config,
                     style,
-                    template: $('body').html()
+                    template: prettier.format($('body').html(), { parser: "html" })
                 });
             }
         });
@@ -62,21 +64,22 @@ const createVue = (config) => {
         path
     } = config;
     console.log(config);
-    fs.writeFile(`${path}.vue`, `
-        <template>
-            <div>
-                ${template}
-            </div>
-        </template>
-        <script>
-        export default {
-            
-        }
-        </script>
-        <style scoped>
-            ${style}
-        </style>
-    `, () => {
+    const vue = prettier.format(`
+    <template>
+        <div>
+            ${template}
+        </div>
+    </template>
+    <script>
+    export default {
+        
+    }
+    </script>
+    <style scoped>
+        ${style}
+    </style>
+`, { parser: "vue" });
+    fs.writeFile(`${path}.vue`, vue, () => {
         console.log('write success');
     })
 }
@@ -88,28 +91,29 @@ const createHtml = (config) => {
         path
     } = config;
     console.log(config);
-    fs.writeFile(`${path}.html`, `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Document</title>
-            <style>${style}</style>
-        </head>
-        <body>
-            <div id="demo"></div>
-            <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-            <script>
-                new Vue({
-                    el:"#demo",
-                    template:${'`'}${template}${'`'}
-                })
-            </script>
-        </body>
-        </html>
-    `, () => {
+    const html = prettier.format(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>${style}</style>
+    </head>
+    <body>
+        <div id="demo"></div>
+        <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+        <script>
+            new Vue({
+                el:"#demo",
+                template:${'`'}${template}${'`'}
+            })
+        </script>
+    </body>
+    </html>
+`, { parser: "html" });
+    fs.writeFile(`${path}.html`, html, () => {
         console.log('write success');
     })
 }
