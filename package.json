@@ -1,8 +1,8 @@
 {
   "name": "vueno",
   "displayName": "Vueno",
-  "description": "A beautify Visual Studio Code extension",
-  "version": "0.0.2",
+  "description": "HTML file transform Vue file",
+  "version": "1.0.3",
   "author": "Eno Yao",
   "publisher": "Wscats",
   "icon": "logos/logo.png",
@@ -26,7 +26,9 @@
     "jing",
     "jialong",
     "yaojialong",
-    "xie"
+    "xie",
+    "vue",
+    "html"
   ],
   "categories": [
     "Other"
