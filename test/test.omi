@@ -1,0 +1,25 @@
+<template name="m-y">
+    <div>
+        1234678910111213
+    </div>
+</template>
+<script>
+export default class {
+    static abc = '123'
+    install() {
+        this.data = {
+            title: "omi"
+        }
+    }
+    uninstall(){
+        let a='abc'
+    }
+    render(){}
+    css(){}
+}
+</script>
+<style>
+p{
+    color:red;
+}
+</style>
