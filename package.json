@@ -2,17 +2,15 @@
   "name": "vueno",
   "displayName": "Vueno",
   "description": "HTML file transform Vue file",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "icon": "logos/logo.png",
+  "icon": "logos/logo2.png",
   "engines": {
     "vscode": "^1.34.0"
   },
   "keywords": [
-    "omi",
-    "omijs",
-    "omi.js",
+    "vue",
     "eno",
     "eno yao",
     "yao",
@@ -23,11 +21,7 @@
     "lemon",
     "laoyao",
     "one",
-    "jing",
-    "jialong",
-    "yaojialong",
     "xie",
-    "vue",
     "html"
   ],
   "categories": [
