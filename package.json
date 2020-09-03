@@ -2,7 +2,7 @@
   "name": "vueno",
   "displayName": "Vueno",
   "description": "HTML file transform Vue file",
-  "version": "1.0.7",
+  "version": "1.1.1",
   "author": "Eno Yao",
   "publisher": "Wscats",
   "icon": "logos/logo2.png",
@@ -29,18 +29,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wscats/omi-snippets"
+    "url": "https://github.com/Wscats/vueno"
   },
   "activationEvents": [
     "*",
-    "onCommand:extension.helloWorld"
+    "onCommand:vueno.helloVueno"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
+        "command": "vueno.helloVueno",
+        "title": "Hello Vueno"
       }
     ]
   },

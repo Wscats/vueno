@@ -54,3 +54,7 @@ div {
 }
 </style>
 ```
+
+例如：我们要仿造美团外卖的网站，你可以打开 https://h5.waimai.meituan.com/login 美团的官网，点击鼠标右键显示网页源代码复制到 `VS Code` 的 `.html` 格式文件中，然后保存就可以生成 `.vue` 后缀的文件了。
+
+![demo](logos/1.png)
