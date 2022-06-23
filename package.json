@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "jquery": "^3.5.0",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "prettier": "^1.18.2"
   }
 }
