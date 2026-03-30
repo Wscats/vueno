@@ -1,3 +1,5 @@
+'use strict';
+
 console.log(1);
-var bool = true;
+const bool = true;
 console.log(bool);
